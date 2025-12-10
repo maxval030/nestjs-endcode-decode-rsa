@@ -3,6 +3,7 @@ import { AppService } from './app.service';
 import { GetEncryptReqDto } from './dto/req/getEncrypt.req.dto';
 import { GetEncryptResDto } from './dto/res/getEncrypt.res.dto';
 import { GetDecryptReqDto } from './dto/req/getDecrypt.req.dto';
+import { GetDecryptResDto } from './dto/res/getDecrypt.res.dto';
 
 @Controller()
 export class AppController {
@@ -14,7 +15,7 @@ export class AppController {
   }
 
   @Post('get-decrypt-data')
-  getDecrypt(@Body() body: GetDecryptReqDto): GetEncryptResDto {
+  getDecrypt(@Body() body: GetDecryptReqDto): GetDecryptResDto {
     return this.appService.getDecrypt(body);
   }
 }

@@ -3,15 +3,13 @@ import { GetEncryptReqDto } from './dto/req/getEncrypt.req.dto';
 import * as crypto from 'crypto';
 import { GetDecryptReqDto } from './dto/req/getDecrypt.req.dto';
 import { GetEncryptResDto } from './dto/res/getEncrypt.res.dto';
+import { GetDecryptResDto } from './dto/res/getDecrypt.res.dto';
 @Injectable()
 export class AppService {
   private readonly rsaPrivateKey: string = process.env.PRIVATE_KEY || '';
   private readonly rsaPublicKey: string = process.env.PUBLIC_KEY || '';
 
-  public getEncrypt(command: GetEncryptReqDto): {
-    data1: string;
-    data2: string;
-  } {
+  public getEncrypt(command: GetEncryptReqDto): GetEncryptResDto {
     const randomAESKey = crypto.randomBytes(16).toString('hex');
     // encrypt randomAESKey with RSA public key
 
@@ -25,7 +23,7 @@ export class AppService {
     };
   }
 
-  public getDecrypt(command: GetDecryptReqDto): GetEncryptResDto {
+  public getDecrypt(command: GetDecryptReqDto): GetDecryptResDto {
     const { data1, data2 } = command;
     const decryptedAESKey = this.decryptRSA(data1);
     const decryptedPayload = this.decryptAES(data2, decryptedAESKey);
