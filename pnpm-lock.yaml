@@ -29,6 +29,9 @@ importers:
       class-validator:
         specifier: ^0.14.3
         version: 0.14.3
+      encrypt-rsa:
+        specifier: ^3.3.0
+        version: 3.3.0
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1737,6 +1740,9 @@ packages:
   encodeurl@2.0.0:
     resolution: {integrity: sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==}
     engines: {node: '>= 0.8'}
+
+  encrypt-rsa@3.3.0:
+    resolution: {integrity: sha512-pIKuD2C/k9Vc5S7t4xMPVeXOE+rlXqzGotJc1yO0YLDr3DGy/jlnxhA2lxyvrEfO0J3R9bkl6vFby5Yd3ajNVA==}
 
   enhanced-resolve@5.18.3:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
@@ -5228,6 +5234,8 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   encodeurl@2.0.0: {}
+
+  encrypt-rsa@3.3.0: {}
 
   enhanced-resolve@5.18.3:
     dependencies:
