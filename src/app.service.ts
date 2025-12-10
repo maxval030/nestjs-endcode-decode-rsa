@@ -23,7 +23,7 @@ export class AppService {
     const data1 = this.encryptRSA(randomAESKey);
     // encrypt payload with AES using randomAESKey
     const data2 = this.encryptAES(command.payload, randomAESKey);
-
+    throw new Error('Test Sentry');
     return {
       data1,
       data2,
