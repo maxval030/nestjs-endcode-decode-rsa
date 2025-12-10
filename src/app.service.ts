@@ -1,18 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { GetEncryptReqDto } from './dto/req/getEncrypt.req.dto';
 import * as crypto from 'crypto';
-import NodeRSA from 'encrypt-rsa';
 import { GetDecryptReqDto } from './dto/req/getDecrypt.req.dto';
 import { GetEncryptResDto } from './dto/res/getEncrypt.res.dto';
 @Injectable()
 export class AppService {
   private readonly rsaPrivateKey: string = process.env.PRIVATE_KEY || '';
   private readonly rsaPublicKey: string = process.env.PUBLIC_KEY || '';
-  private rsa: NodeRSA;
-
-  constructor() {
-    this.rsa = new NodeRSA(this.rsaPublicKey, this.rsaPrivateKey);
-  }
 
   public getEncrypt(command: GetEncryptReqDto): {
     data1: string;
@@ -20,10 +14,11 @@ export class AppService {
   } {
     const randomAESKey = crypto.randomBytes(16).toString('hex');
     // encrypt randomAESKey with RSA public key
+
     const data1 = this.encryptRSA(randomAESKey);
     // encrypt payload with AES using randomAESKey
     const data2 = this.encryptAES(command.payload, randomAESKey);
-    throw new Error('Test Sentry');
+
     return {
       data1,
       data2,
@@ -42,9 +37,9 @@ export class AppService {
   }
 
   private encryptRSA(text: string): string {
-    const encryptRsaData = this.rsa.encrypt({
-      text,
-    });
+    const encryptRsaData = crypto
+      .privateEncrypt(this.rsaPrivateKey, Buffer.from(text))
+      .toString('base64');
 
     return encryptRsaData;
   }
@@ -63,9 +58,9 @@ export class AppService {
   }
 
   private decryptRSA(encryptedText: string): string {
-    const decryptRsaData = this.rsa.decrypt({
-      text: encryptedText,
-    });
+    const decryptRsaData = crypto
+      .publicDecrypt(this.rsaPublicKey, Buffer.from(encryptedText, 'base64'))
+      .toString('utf8');
 
     return decryptRsaData;
   }
